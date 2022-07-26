@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "3df58e53-0dc1-45c8-96b9-686e051b006e",
+		"name": "Acty Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14978823"
+	},
+	"item": [
+		{
+			"name": "traktorist.org/json/read.php",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"org_name\": \"Black Banana\"\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.traktorist.org/json/read.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"traktorist",
+						"org"
+					],
+					"path": [
+						"json",
+						"read.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "traktorist.org/json/insert.php",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"org_name\": \"Paradise Island\",\r\n  \"daugthers\": [{\r\n    \"org_name\": \"Banana tree\",\r\n    \"daugthers\": [{\r\n      \"org_name\": \"Yellow Banana\"\r\n    }, {\r\n      \"org_name\": \"Brown Banana\"\r\n    }, {\r\n      \"org_name\": \"Black Banana\"\r\n    }]\r\n  }, {\r\n    \"org_name\": \"Big banana tree\",\r\n    \"daugthers\": [{\r\n      \"org_name\": \"Yellow Banana\"\r\n    }, {\r\n      \"org_name\": \"Brown Banana\"\r\n    }, {\r\n      \"org_name\": \"Green Banana\"\r\n    }, {\r\n      \"org_name\": \"Black Banana\",\r\n      \"daugthers\": [{\r\n        \"org_name\": \"Phoneutria Spider\"\r\n      }]\r\n    }]\r\n  }, {\r\n    \"org_name\": \"Red banana tree\"\r\n  }]\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.traktorist.org/json/insert.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"traktorist",
+						"org"
+					],
+					"path": [
+						"json",
+						"insert.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
