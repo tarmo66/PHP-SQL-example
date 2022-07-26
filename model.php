@@ -11,17 +11,6 @@ function insertData($data, $conn)
 
 function getParent($input, $conn)
 {
-    /*
-    $this->db->select("ORGANISATION");
-    $this->db->from('organisations');
-    $this->db->where('CHILD', 'Black Banana');
-    $this->db->limit(100);
-    //$sql = $this->db->get_compiled_select();
-    //$this->db->order_by('ORGANISATION DESC');
-    $query = $this->db->get();
-    return $query->result_array();
-    */
-
     $child = $input;
     $apiParent = array();
 
@@ -31,25 +20,9 @@ function getParent($input, $conn)
     if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_array($result)) {
             array_push($apiParent, $row['ORGANISATION']);
-        // Free result set
-        //mysqli_free_result($result);
         }
     }
 
-    /*
-    if(mysqli_num_rows($result) > 0){
-        echo "<table>";
-        while($row = mysqli_fetch_array($result)){
-            echo "<tr>";
-                echo "<td>" . $row['ID'] . "</td>";
-                echo "<td>" . $row['ORGANISATION'] . "</td>";
-                array_push($apiParent, $row['ORGANISATION']);
-                echo "<td>" . $row['CHILD'] . "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-    }
-    */
     mysqli_free_result($result);
     return $apiParent;
 }
@@ -58,14 +31,13 @@ function getSister($parent, $conn)
 {
     $apiSister = array();
 
+    //Select all organisations with the same parent
     $sql = "SELECT * FROM apiTable WHERE ORGANISATION = '$parent'";
     //$sql = "SELECT * FROM apiTable";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_array($result)) {
             array_push($apiSister, $row['CHILD']);
-        // Free result set
-        //mysqli_free_result($result);
         }
     }
 
@@ -83,8 +55,6 @@ function getChildren($input, $conn)
     if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_array($result)) {
             array_push($apiChildren, $row['CHILD']);
-        // Free result set
-        //mysqli_free_result($result);
         }
     }
 

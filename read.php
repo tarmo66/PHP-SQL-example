@@ -2,16 +2,19 @@
 require_once 'config.php';
 require 'model.php';
 
+//Read Postman request
 $json = (json_decode(file_get_contents("php://input"), true));
 //var_dump($json);
 
 $input = $json[0]['org_name'];
-//$input = 'JuuksurExpress';
+//$input = 'Black Banana';
 $sisters = array();
 $sistersCombined = array();
 
+//Get all parents (model.php)
 $apiParent = getParent($input, $conn);
 foreach ($apiParent as $key => $parent) {
+    //Get all organisations with the same parent
     $sisters = getSister($parent, $conn);
     foreach ($sisters as $key => $value) {
         array_push($sistersCombined, $value);
@@ -19,10 +22,9 @@ foreach ($apiParent as $key => $parent) {
 }
 //var_dump($sistersCombined);
 
+//model.php
 $apiChild = getChildren($input, $conn);
 //var_dump($apiChild);
-
-
 
 $arrayItem = array();
 $results = array();
@@ -31,12 +33,15 @@ $parentsfiltered = array_unique($apiParent);
 
 $sisters = array_unique($sistersCombined);
 
+//Remove myself from sisters array
 $sistersfiltered = array_diff($sisters, array($input));
     
 $childrenfiltered = array_unique($apiChild);
 
 $parentsfiltered = array_unique($apiParent);
 //print_r($parentsfiltered);
+
+//Combining results: parents, sisters, children
 $i=0;
 foreach ($parentsfiltered as $key => $value) {
     $arrayItem[$i]['relationship_type'] = 'parent';
@@ -63,7 +68,7 @@ foreach ($childrenfiltered as $key => $value) {
     $i++;
 }
 
-
+//Sorting by org_name
 function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
     $sort_col = array();
     foreach ($arr as $key => $row) {
@@ -74,32 +79,21 @@ function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
 }
 
 array_sort_by_column($results, 'org_name');
-/*
-                        foreach ($results as $kk => $vv) {
-                            foreach ($vv as $key => $value) {
-                                echo $key . ' : ' . $value . '<br>';
-                            }
-                        }
-*/
-                     
+
+//json output                     
 //$sample_data = json_encode($results);
 
-//$sample_data = $results;
-
-// just normal getting data
+//HTML output 100 results on a page with pagination
 $raw_data = $results;
-//$raw_data = $raw_data['relationship_type'];
 
-// use get variable to paging number
 $page = !isset($_GET['page']) ? 1 : $_GET['page'];
-$limit = 100; // five rows per page
-$offset = ($page - 1) * $limit; // offset
-$total_items = count($raw_data); // total items
+$limit = 100;
+$offset = ($page - 1) * $limit;
+$total_items = count($raw_data);
 $total_pages = ceil($total_items / $limit);
-$final = array_splice($raw_data, $offset, $limit); // splice them according to offset and limit
+$final = array_splice($raw_data, $offset, $limit);
 
 ?>
-<!-- print links -->
 <?php for($x = 1; $x <= $total_pages; $x++): ?>
     <a href='read.php?page=<?php echo $x; ?>'><?php echo $x; ?></a>
 <?php endfor; ?>

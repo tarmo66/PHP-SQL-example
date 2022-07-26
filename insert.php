@@ -7,6 +7,7 @@ deleteData($conn);
 $json = (json_decode(file_get_contents("php://input"), true));
 //var_dump($json);
 
+//Looping through 4-level multidimensional array
 foreach($json as $elem)  {
     echo( $elem['org_name']. " child " );
         if (isset($elem['daugthers'])) {
@@ -41,13 +42,4 @@ foreach($json as $elem)  {
         echo("<br/>");
     }
 }
-
-//$json = 'test';
-
-
-// Takes raw data from the request
-
-
-//$this->apiItem = $this->Api_model->clearTable(); 
-
 ?>
