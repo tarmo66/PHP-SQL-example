@@ -15,7 +15,6 @@ function getParent($input, $conn)
     $apiParent = array();
 
     $sql = "SELECT * FROM apiTable WHERE CHILD = '$child'";
-    //$sql = "SELECT * FROM apiTable";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_array($result)) {
@@ -31,9 +30,8 @@ function getSister($parent, $conn)
 {
     $apiSister = array();
 
-    //Select all organisations with the same parent
     $sql = "SELECT * FROM apiTable WHERE ORGANISATION = '$parent'";
-    //$sql = "SELECT * FROM apiTable";
+
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_array($result)) {
@@ -50,7 +48,7 @@ function getChildren($input, $conn)
     $apiChildren = array();
 
     $sql = "SELECT * FROM apiTable WHERE ORGANISATION = '$input'";
-    //$sql = "SELECT * FROM apiTable";
+
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_array($result)) {
